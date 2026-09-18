@@ -1,0 +1,13 @@
+# Generated in the Claude sandbox — NOT the environment that produced the
+# headline numbers in the README (those came from a run on the author's own
+# machine, which used different versions).
+#
+# Do this once, right after your first successful run, and commit the result:
+#   pip freeze > requirements.txt
+#
+# The lines below are only a rough reference for what to expect:
+pandas
+numpy
+scikit-learn
+scipy
+streamlit

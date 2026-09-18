@@ -1,0 +1,26 @@
+{
+  "naive_MAE": 3.611303590617705,
+  "no_augmentation_MAE": 3.1001466288700987,
+  "n_seeds": 5,
+  "aug_frac": 1.0,
+  "arms": [
+    {
+      "mode": "offline",
+      "label": "Hand-written rules",
+      "MAE_mean": 3.1337503993530635,
+      "MAE_std": 0.021032638443244857,
+      "delta_vs_no_augmentation": 0.033603770482964014,
+      "beat_baseline_in_seeds": 0,
+      "wilcoxon_p": 0.0625
+    },
+    {
+      "mode": "learned",
+      "label": "Model trained on this data",
+      "MAE_mean": 3.1218415859436077,
+      "MAE_std": 0.03906259051254382,
+      "delta_vs_no_augmentation": 0.02169495707350828,
+      "beat_baseline_in_seeds": 2,
+      "wilcoxon_p": 0.3125
+    }
+  ]
+}

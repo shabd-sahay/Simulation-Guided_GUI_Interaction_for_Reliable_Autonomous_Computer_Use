@@ -1,0 +1,16 @@
+{
+  "n_seeds": 3,
+  "test_rows": 53974,
+  "train_rows_real": 192993,
+  "scenario_mode": "offline",
+  "aug_frac": 2.0,
+  "baseline_MAE_mean": 3.107404872365563,
+  "baseline_MAE_std": 0.02468673611705418,
+  "augmented_MAE_mean": 3.1057242702296612,
+  "augmented_MAE_std": 0.027401922251712535,
+  "baseline_RMSE_mean": 21.189715524422628,
+  "augmented_RMSE_mean": 20.840120552356463,
+  "mean_MAE_delta": -0.0016806021359019319,
+  "augmented_better_in_seeds": 2,
+  "wilcoxon_p_MAE": 0.75
+}
