@@ -63,6 +63,22 @@ model will handle surprises better.
 ways of inventing those situations, including one trained on your own data.
 """)
 
+st.markdown("""
+<div class="card">
+<b>📌 Documented reference result</b> (5 repeat runs, +200% synthetic data, verified and
+written up in the README):
+
+Model trained on this data: <b>3.095</b> average miss vs. <b>3.100</b> with no invented
+data (won 3 of 5 runs, p=0.44 — a small, statistically inconclusive edge).
+Hand-written rules: <b>3.123</b> (worse, p=0.13).
+
+<br><br>The live run below repeats this from scratch, in front of you, with real
+randomness — so it can land slightly differently on any given click,
+<i>especially with fewer repeat runs</i>. That's expected behavior for a genuine
+near-tie, not a bug. The number above is the one to trust as the finding.
+</div>
+""", unsafe_allow_html=True)
+
 with st.expander("📖 First time here? Read this — it explains every number you'll see"):
     st.markdown("""
 **What the model is predicting.** For each product, in each month: how many units
@@ -143,7 +159,7 @@ with st.sidebar:
         llm_model = st.selectbox("Which language model", LLM_CHOICES, index=0)
 
     st.subheader("3. How carefully to test")
-    n_seeds = st.slider("Repeat runs", 1, 5, 3,
+    n_seeds = st.slider("Repeat runs", 1, 5, 5,
                         help="Each run retrains everything from scratch with a "
                              "different random starting point. More runs makes "
                              "the comparison more trustworthy but slower.")
