@@ -242,34 +242,38 @@ guarantees:
 
 ## Results
 
-On the sample dataset — 5 seeds, +100% synthetic data added, 5 months held out:
+Reported here is a real run on the sample dataset — 5 seeds, +200% synthetic
+data added, 5 months held out. (Exact figures are version-sensitive — see the
+reproducibility note below — but the shape of the result is what to trust.)
 
 | Method | Average miss (MAE) | vs. no invented data | Beat baseline in | p-value |
 |---|---|---|---|---|
 | Naive — "same as last month" | 3.611 | — | — | — |
-| **No invented data (real only)** | **3.112** | — | — | — |
-| Model trained on this data | 3.115 | +0.003 (worse) | 3 / 5 seeds | 0.81 |
-| Hand-written rules | 3.133 | +0.022 (worse) | 1 / 5 seeds | 0.13 |
+| **No invented data (real only)** | **3.100** | — | — | — |
+| Model trained on this data | 3.095 | −0.005 (slightly better) | 3 / 5 seeds | 0.44 |
+| Hand-written rules | 3.123 | +0.022 (worse) | 1 / 5 seeds | 0.13 |
 
 ### Reading this honestly
 
-**The forecasting model itself works.** 3.112 against the naive benchmark's
+**The forecasting model itself works.** 3.100 against the naive benchmark's
 3.611 is a real, substantial improvement — the model is genuinely learning
 something from history.
 
-**No scenario writer improved on simply not inventing anything.** That is the
-answer to the question this project asks, and it is a negative one.
+**Neither scenario writer significantly beat simply not inventing anything** —
+that's the headline answer, and it's a negative one. But the two didn't fail
+identically, and that's the finding worth discussing:
 
-**But the three failed differently, and that's the finding worth discussing:**
-
-- **Hand-written rules actively hurt** (+0.022, losing on 4 of 5 seeds). Feeding
-  a model confidently-wrong assumptions about your domain is worse than feeding
-  it nothing.
-- **The learned generator is statistically indistinguishable from not
-  augmenting at all** (+0.003, p=0.81, winning on 3 of 5 seeds). It did no
-  meaningful harm — which, given it generates data 7× closer to reality, makes
-  sense: it's adding rows that look so much like real data that the model
-  learns almost exactly what it would have anyway.
+- **Hand-written rules hurt** (+0.022, losing on 4 of 5 seeds). Feeding a model
+  confidently-wrong assumptions about your domain is worse than feeding it
+  nothing.
+- **The learned generator came out very slightly ahead of both alternatives**
+  (−0.005 vs. no augmentation, winning on 3 of 5 seeds) — but the p-value
+  (0.44) says this margin is well within what randomness alone could produce.
+  It's fair to call it a draw with "no augmentation," not a win. What's
+  genuinely true, though: it did no measurable harm, unlike the hand-written
+  version — consistent with it generating data 7× closer to the real
+  distribution (see the table above). It's adding rows that look so much like
+  real data that the model learns almost exactly what it would have anyway.
 
 That last point is the genuinely interesting conclusion, and it's a bit of a
 paradox worth sitting with:
