@@ -25,6 +25,14 @@ from src.scenarios import (get_multipliers, augment_training_frame,
 from src.decide import decide
 from run_experiment import fit_predict, score
 
+# Set this to True only when running locally with `transformers`/`torch`
+# installed and RAM to spare. Left False here because loading even the
+# smallest model on this list (~0.5B params) can exceed the memory limit of
+# free-tier hosting and crash the whole app for every visitor, not just
+# whoever clicked it - an out-of-memory kill isn't something a try/except
+# inside the app can catch or recover from.
+ALLOW_LLM_ARM = False
+
 st.set_page_config(page_title="Which AI writes better what-if scenarios?",
                     page_icon="📦", layout="wide")
 
@@ -151,12 +159,22 @@ with st.sidebar:
                               help=MODE_BLURBS["offline"])
     use_learned = st.checkbox("Model trained on this data", value=True,
                               help=MODE_BLURBS["learned"])
-    use_llm = st.checkbox("General-purpose language model", value=False,
-                          help=MODE_BLURBS["llm"] +
-                               " Downloads model weights on first use.")
-    llm_model = DEFAULT_LLM
-    if use_llm:
-        llm_model = st.selectbox("Which language model", LLM_CHOICES, index=0)
+    if ALLOW_LLM_ARM:
+        use_llm = st.checkbox("General-purpose language model", value=False,
+                              help=MODE_BLURBS["llm"] +
+                                   " Downloads model weights on first use.")
+        llm_model = DEFAULT_LLM
+        if use_llm:
+            llm_model = st.selectbox("Which language model", LLM_CHOICES, index=0)
+    else:
+        use_llm = False
+        llm_model = DEFAULT_LLM
+        st.checkbox("General-purpose language model", value=False, disabled=True,
+                    help="Disabled on this hosted demo - loading a language "
+                         "model needs more RAM than free hosting provides, "
+                         "and can crash the app for every visitor. Run "
+                         "locally with `pip install transformers torch` to "
+                         "enable this arm.")
 
     st.subheader("3. How carefully to test")
     n_seeds = st.slider("Repeat runs", 1, 5, 5,

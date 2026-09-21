@@ -11,5 +11,3 @@ numpy
 scikit-learn
 scipy
 streamlit
-transformers
-torch
